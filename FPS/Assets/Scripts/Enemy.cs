@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         health = 100;
-        hitAmount = 30d;
+        hitAmount = 40d;
     }
 
     void Update()
@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     void TakeHit() 
     {
+		Debug.Log ("Enemy hit!");
         health -= hitAmount;
         CheckIfDied();
     }
@@ -39,14 +40,16 @@ public class Enemy : MonoBehaviour
 
     void Die() 
     {
-        Debug.Log("enemy died");
+        Debug.Log("Enemy killed");
+		GameObject.DestroyObject(this.gameObject);
     }
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.name == "bullet")
+        if (c.gameObject.name == "bullet(Clone)" || true)
         {
-            TakeHit();
+			GameObject.DestroyObject(c.gameObject);
+			TakeHit();
         }
     }
 }
