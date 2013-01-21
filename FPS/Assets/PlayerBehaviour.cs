@@ -12,7 +12,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        //bla-bla
         CharacterController controller = GetComponent<CharacterController>();
         transform.Rotate(0, Input.GetAxis("Horizontal") * rot, 0);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
