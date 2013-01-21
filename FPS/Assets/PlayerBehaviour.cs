@@ -5,7 +5,9 @@ public class PlayerBehaviour : MonoBehaviour {
 
     float speed = 3.0f, rot= 3.0f;
 	// Use this for initialization
-   
+ 
+	public Rigidbody bulletPrefab;
+	
 	void Start () {
        
 	}
@@ -28,15 +30,15 @@ public class PlayerBehaviour : MonoBehaviour {
 		
 		
 		// Change this to mouse button 1
-		if (Input.GetButtonDown("Fire1")) {
+		if (Input.GetMouseButtonDown(0)) {
 
             // Instantiate the projectile at the position and rotation of this transform
-            //var clone : Transform;
-            //newBullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            Rigidbody newBullet;
+            newBullet = (Rigidbody) Instantiate(bulletPrefab, transform.position, transform.rotation);
 
             // Add force to the cloned object in the object's forward direction
-            //newBullet.rigidbody.AddForce( new Vector3(2,2,2) );
-        	Debug.Log("shoot");
+            //newBullet.rigidbody.AddForce( new Vector3(1000,0,0) );
+			newBullet.velocity = transform.TransformDirection (Vector3.forward * 150);
 		}
 		
 	}
