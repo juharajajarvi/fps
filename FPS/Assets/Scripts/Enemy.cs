@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    // x, y, speed, health
 
     private double health;
     
