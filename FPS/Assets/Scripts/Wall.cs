@@ -16,15 +16,17 @@ public class Wall : MonoBehaviour
 
 	void InstantiateBulletHole(Vector3 bulletPosition)
 	{
-		    Rigidbody newBulletHole;
+			// Position depends mainly on the bullet.
+		 	// TODO but make sure the hole won't be inside the wall
+			Vector3 holePosition;
+			holePosition = bulletPosition - 3 * Vector3.forward;
 		
-			Quaternion bulletRot;
-        
-			Debug.Log("hit wall");
-			Debug.Log("y " + this.gameObject.transform.rotation.y* Mathf.Rad2Deg + " z " + this.gameObject.transform.rotation.z* Mathf.Rad2Deg);
-		
-			bulletRot = Quaternion.Euler(90, transform.rotation.y * Mathf.Rad2Deg, transform.rotation.z* Mathf.Rad2Deg);
-			newBulletHole = (Rigidbody) Instantiate(bulletHole, bulletPosition, bulletRot);
+			// Rotation depends on the the wall. This doesn't with roof....
+			Quaternion holeRotation;
+			holeRotation = Quaternion.Euler(90, this.gameObject.transform.eulerAngles.y, this.gameObject.transform.eulerAngles.z);
+
+			Rigidbody newBulletHole;
+			newBulletHole = (Rigidbody) Instantiate(bulletHole, holePosition, holeRotation);
 	}
 
     void OnCollisionEnter(Collision c)
@@ -32,8 +34,8 @@ public class Wall : MonoBehaviour
         if (c.gameObject.name == "bullet(Clone)" )
         {
 			//Debug.Log ("a bullet hit the wall");
-			GameObject.DestroyObject(c.gameObject);
 			InstantiateBulletHole(c.gameObject.transform.position);
+			GameObject.DestroyObject(c.gameObject);
         }
     }
 }
