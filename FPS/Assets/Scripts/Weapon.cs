@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
 	    // Instantiate the projectile at the position and rotation of this transform
         Rigidbody newBullet;
         //newBullet = (Rigidbody) Instantiate(bulletPrefab, transform.position, transform.rotation);
-		newBullet = (Rigidbody) Instantiate(bulletPrefab, transform.position, transform.rotation);
+		newBullet = (Rigidbody) Instantiate(bulletPrefab, transform.position + Vector3.forward*2, transform.rotation);
 		
         // Add force to the cloned object in the object's forward direction
 		newBullet.velocity = transform.TransformDirection (Vector3.forward * 150);
