@@ -1,3 +1,4 @@
+
 #pragma strict
 #pragma implicit
 #pragma downcast
@@ -7,7 +8,8 @@ var canControl : boolean = true;
 
 var useFixedUpdate : boolean = true;
 
-// For the next variables, @System.NonSerialized tells Unity to not serialize the variable or show it in the inspector view.
+// For the next variables, @System.NonSerialized tells Unity to not 
+// serialize the variable or show it in the inspector view.
 // Very handy for organization!
 
 // The current global direction we want the character to move in.
@@ -20,23 +22,29 @@ var inputMoveDirection : Vector3 = Vector3.zero;
 var inputJump : boolean = false;
 
 class CharacterMotorMovement {
+	
 	// The maximum horizontal speed when moving
-	var maxForwardSpeed : float = 80.0;
-	var maxSidewaysSpeed : float = 60.0;
-	var maxBackwardsSpeed : float = 50.0;
+	var maxForwardSpeed : float = 10.0;
+	var maxSidewaysSpeed : float = 10.0;
+	var maxBackwardsSpeed : float = 10.0;
 	
 	// Curve for multiplying speed based on slope (negative = downwards)
-	var slopeSpeedMultiplier : AnimationCurve = AnimationCurve(Keyframe(-90, 1), Keyframe(0, 1), Keyframe(90, 0));
+	var slopeSpeedMultiplier : AnimationCurve = AnimationCurve(
+		Keyframe(-90, 1), 
+		Keyframe(0, 1), 
+		Keyframe(90, 0)
+	);
 	
 	// How fast does the character change speeds?  Higher is faster.
-	var maxGroundAcceleration : float = 80.0;
-	var maxAirAcceleration : float = 50.0;
+	var maxGroundAcceleration : float = 30.0;
+	var maxAirAcceleration : float = 20.0;
 
 	// The gravity for the character
 	var gravity : float = 10.0;
 	var maxFallSpeed : float = 20.0;
 	
-	// For the next variables, @System.NonSerialized tells Unity to not serialize the variable or show it in the inspector view.
+	// For the next variables, @System.NonSerialized tells Unity to not 
+	// serialize the variable or show it in the inspector view.
 	// Very handy for organization!
 
 	// The last collision flags returned from controller.Move
@@ -69,6 +77,7 @@ enum MovementTransferOnJump {
 
 // We will contain all the jumping related variables in one helper class for clarity.
 class CharacterMotorJumping {
+
 	// Can the character jump?
 	var enabled : boolean = true;
 
@@ -86,7 +95,8 @@ class CharacterMotorJumping {
 	// 0 means a fully vertical jump and 1 means fully perpendicular.
 	var steepPerpAmount : float = 0.5;
 	
-	// For the next variables, @System.NonSerialized tells Unity to not serialize the variable or show it in the inspector view.
+	// For the next variables, @System.NonSerialized tells Unity to not serialize the variable 
+	// or show it in the inspector view.
 	// Very handy for organization!
 
 	// Are we jumping? (Initiated with jump button and not grounded yet)
@@ -146,6 +156,7 @@ class CharacterMotorMovingPlatform {
 var movingPlatform : CharacterMotorMovingPlatform = CharacterMotorMovingPlatform();
 
 class CharacterMotorSliding {
+	
 	// Does the character slide on too steep surfaces?
 	var enabled : boolean = true;
 	
@@ -159,6 +170,7 @@ class CharacterMotorSliding {
 	// How much can the player influence the sliding speed?
 	// If the value is 0.5 the player can speed the sliding up to 150% or slow it down to 50%.
 	var speedControl : float = 0.4;
+	
 }
 
 var sliding : CharacterMotorSliding = CharacterMotorSliding();
@@ -181,6 +193,7 @@ function Awake () {
 }
 
 private function UpdateFunction () {
+	
 	// We copy the actual velocity into a temporary variable that we can manipulate.
 	var velocity : Vector3 = movement.velocity;
 	
@@ -193,10 +206,12 @@ private function UpdateFunction () {
 	// Moving platform support
 	var moveDistance : Vector3 = Vector3.zero;
 	if (MoveWithPlatform()) {
+		
 		var newGlobalPoint : Vector3 = movingPlatform.activePlatform.TransformPoint(movingPlatform.activeLocalPoint);
 		moveDistance = (newGlobalPoint - movingPlatform.activeGlobalPoint);
-		if (moveDistance != Vector3.zero)
+		if (moveDistance != Vector3.zero) {
 			controller.Move(moveDistance);
+		}
 		
 		// Support moving platform rotation as well:
         var newGlobalRotation : Quaternion = movingPlatform.activePlatform.rotation * movingPlatform.activeLocalRotation;
@@ -207,6 +222,7 @@ private function UpdateFunction () {
 	        // Prevent rotation of the local up vector
 	        tr.Rotate(0, yRotation, 0);
         }
+        
 	}
 	
 	// Save lastPosition for velocity calculation.
@@ -217,10 +233,15 @@ private function UpdateFunction () {
 	
 	// Find out how much we need to push towards the ground to avoid loosing grouning
 	// when walking down a step or over a sharp change in slope.
-	var pushDownOffset : float = Mathf.Max(controller.stepOffset, Vector3(currentMovementOffset.x, 0, currentMovementOffset.z).magnitude);
-	if (grounded)
-		currentMovementOffset -= pushDownOffset * Vector3.up;
+	var pushDownOffset : float = Mathf.Max(
+		controller.stepOffset, 
+		Vector3(currentMovementOffset.x, 0, currentMovementOffset.z).magnitude
+	);
 	
+	if (grounded) {
+		currentMovementOffset -= pushDownOffset * Vector3.up;
+	}
+			
 	// Reset variables that will be set by collision function
 	movingPlatform.hitPlatform = null;
 	groundNormal = Vector3.zero;
@@ -287,7 +308,7 @@ private function UpdateFunction () {
 		tr.position += pushDownOffset * Vector3.up;
 	}
 	// We were not grounded but just landed on something
-	else if (!grounded && IsGroundedTest()) {
+	else if ( ! grounded && IsGroundedTest() ) {
 		grounded = true;
 		jumping.jumping = false;
 		SubtractNewPlatformVelocity();
@@ -297,6 +318,7 @@ private function UpdateFunction () {
 	
 	// Moving platforms support
 	if (MoveWithPlatform()) {
+		
 		// Use the center of the lower half sphere of the capsule as reference point.
 		// This works best when the character is standing on moving tilting platforms. 
 		movingPlatform.activeGlobalPoint = tr.position + Vector3.up * (controller.center.y - controller.height*0.5 + controller.radius);
@@ -305,19 +327,24 @@ private function UpdateFunction () {
 		// Support moving platform rotation as well:
         movingPlatform.activeGlobalRotation = tr.rotation;
         movingPlatform.activeLocalRotation = Quaternion.Inverse(movingPlatform.activePlatform.rotation) * movingPlatform.activeGlobalRotation; 
+        
 	}
+	
 }
 
 function FixedUpdate () {
-	if (movingPlatform.enabled) {
-		if (movingPlatform.activePlatform != null) {
-			if (!movingPlatform.newPlatform) {
+	
+	if ( movingPlatform.enabled ) {
+		if ( movingPlatform.activePlatform != null ) {
+			if ( ! movingPlatform.newPlatform ) {
+			
 				var lastVelocity : Vector3 = movingPlatform.platformVelocity;
 				
 				movingPlatform.platformVelocity = (
 					movingPlatform.activePlatform.localToWorldMatrix.MultiplyPoint3x4(movingPlatform.activeLocalPoint)
 					- movingPlatform.lastMatrix.MultiplyPoint3x4(movingPlatform.activeLocalPoint)
 				) / Time.deltaTime;
+				
 			}
 			movingPlatform.lastMatrix = movingPlatform.activePlatform.localToWorldMatrix;
 			movingPlatform.newPlatform = false;
@@ -327,22 +354,28 @@ function FixedUpdate () {
 		}
 	}
 	
-	if (useFixedUpdate)
+	if ( useFixedUpdate ) {
 		UpdateFunction();
+	}
+		
 }
 
 function Update () {
-	if (!useFixedUpdate)
+	if ( ! useFixedUpdate ) {
 		UpdateFunction();
+	}
 }
 
 private function ApplyInputVelocityChange (velocity : Vector3) {	
-	if (!canControl)
+	
+	if ( ! canControl ) {
 		inputMoveDirection = Vector3.zero;
+	}
 	
 	// Find desired velocity
 	var desiredVelocity : Vector3;
 	if (grounded && TooSteep()) {
+		
 		// The direction we're sliding in
 		desiredVelocity = Vector3(groundNormal.x, 0, groundNormal.z).normalized;
 		// Find the input movement direction projected onto the sliding direction
@@ -351,19 +384,24 @@ private function ApplyInputVelocityChange (velocity : Vector3) {
 		desiredVelocity = desiredVelocity + projectedMoveDir * sliding.speedControl + (inputMoveDirection - projectedMoveDir) * sliding.sidewaysControl;
 		// Multiply with the sliding speed
 		desiredVelocity *= sliding.slidingSpeed;
+		
 	}
-	else
+	else {
 		desiredVelocity = GetDesiredHorizontalVelocity();
+	}
+		
 	
 	if (movingPlatform.enabled && movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer) {
 		desiredVelocity += movement.frameVelocity;
 		desiredVelocity.y = 0;
 	}
 	
-	if (grounded)
+	if (grounded) {
 		desiredVelocity = AdjustGroundVelocityToNormal(desiredVelocity, groundNormal);
-	else
+	}
+	else {
 		velocity.y = 0;
+	}
 	
 	// Enforce max velocity change
 	var maxVelocityChange : float = GetMaxAcceleration(grounded) * Time.deltaTime;
@@ -373,9 +411,10 @@ private function ApplyInputVelocityChange (velocity : Vector3) {
 	}
 	// If we're in the air and don't have control, don't apply any velocity change at all.
 	// If we're on the ground and don't have control we do apply it - it will correspond to friction.
-	if (grounded || canControl)
+	if (grounded || canControl) {
 		velocity += velocityChangeVector;
-	
+	}
+			
 	if (grounded) {
 		// When going uphill, the CharacterController will automatically move up by the needed amount.
 		// Not moving it upwards manually prevent risk of lifting off from the ground.
@@ -384,45 +423,54 @@ private function ApplyInputVelocityChange (velocity : Vector3) {
 	}
 	
 	return velocity;
+	
 }
 
 private function ApplyGravityAndJumping (velocity : Vector3) {
 	
-	if (!inputJump || !canControl) {
+	if ( ! inputJump || ! canControl ) {
 		jumping.holdingJumpButton = false;
 		jumping.lastButtonDownTime = -100;
 	}
 	
-	if (inputJump && jumping.lastButtonDownTime < 0 && canControl)
+	if (inputJump && jumping.lastButtonDownTime < 0 && canControl) {
 		jumping.lastButtonDownTime = Time.time;
+	}
 	
-	if (grounded)
+	if (grounded) {
 		velocity.y = Mathf.Min(0, velocity.y) - movement.gravity * Time.deltaTime;
+	}
 	else {
+		
 		velocity.y = movement.velocity.y - movement.gravity * Time.deltaTime;
 		
 		// When jumping up we don't apply gravity for some time when the user is holding the jump button.
 		// This gives more control over jump height by pressing the button longer.
 		if (jumping.jumping && jumping.holdingJumpButton) {
+			
 			// Calculate the duration that the extra jump force should have effect.
 			// If we're still less than that duration after the jumping time, apply the force.
 			if (Time.time < jumping.lastStartTime + jumping.extraHeight / CalculateJumpVerticalSpeed(jumping.baseHeight)) {
 				// Negate the gravity we just applied, except we push in jumpDir rather than jump upwards.
 				velocity += jumping.jumpDir * movement.gravity * Time.deltaTime;
 			}
+			
 		}
 		
 		// Make sure we don't fall any faster than maxFallSpeed. This gives our character a terminal velocity.
 		velocity.y = Mathf.Max (velocity.y, -movement.maxFallSpeed);
+		
 	}
 		
 	if (grounded) {
+		
 		// Jump only if the jump button was pressed down in the last 0.2 seconds.
 		// We use this check instead of checking if it's pressed down right now
 		// because players will often try to jump in the exact moment when hitting the ground after a jump
 		// and if they hit the button a fraction of a second too soon and no new jump happens as a consequence,
 		// it's confusing and it feels like the game is buggy.
 		if (jumping.enabled && canControl && (Time.time - jumping.lastButtonDownTime < 0.2)) {
+			
 			grounded = false;
 			jumping.jumping = true;
 			jumping.lastStartTime = Time.time;
@@ -430,17 +478,21 @@ private function ApplyGravityAndJumping (velocity : Vector3) {
 			jumping.holdingJumpButton = true;
 			
 			// Calculate the jumping direction
-			if (TooSteep())
+			if ( TooSteep() ) {
 				jumping.jumpDir = Vector3.Slerp(Vector3.up, groundNormal, jumping.steepPerpAmount);
-			else
+			}
+			else {
 				jumping.jumpDir = Vector3.Slerp(Vector3.up, groundNormal, jumping.perpAmount);
+			}
+				
 			
 			// Apply the jumping force to the velocity. Cancel any vertical velocity first.
 			velocity.y = 0;
 			velocity += jumping.jumpDir * CalculateJumpVerticalSpeed (jumping.baseHeight);
 			
 			// Apply inertia from platform
-			if (movingPlatform.enabled &&
+			if (
+				movingPlatform.enabled &&
 				(movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer ||
 				movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)
 			) {
@@ -449,35 +501,49 @@ private function ApplyGravityAndJumping (velocity : Vector3) {
 			}
 			
 			SendMessage("OnJump", SendMessageOptions.DontRequireReceiver);
+			
 		}
 		else {
 			jumping.holdingJumpButton = false;
 		}
+		
 	}
 	
 	return velocity;
+	
 }
 
 function OnControllerColliderHit (hit : ControllerColliderHit) {
+	
 	if (hit.normal.y > 0 && hit.normal.y > groundNormal.y && hit.moveDirection.y < 0) {
-		if ((hit.point - movement.lastHitPoint).sqrMagnitude > 0.001 || lastGroundNormal == Vector3.zero)
+	
+		if ((hit.point - movement.lastHitPoint).sqrMagnitude > 0.001 || lastGroundNormal == Vector3.zero) {
 			groundNormal = hit.normal;
-		else
+		}
+		else {
 			groundNormal = lastGroundNormal;
+		}			
 		
 		movingPlatform.hitPlatform = hit.collider.transform;
 		movement.hitPoint = hit.point;
 		movement.frameVelocity = Vector3.zero;
+		
 	}
+	
 }
 
 private function SubtractNewPlatformVelocity () {
+	
 	// When landing, subtract the velocity of the new ground from the character's velocity
 	// since movement in ground is relative to the movement of the ground.
-	if (movingPlatform.enabled &&
-		(movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer ||
-		movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)
+	if (
+		movingPlatform.enabled &&
+		(
+			movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer ||
+			movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer
+		)
 	) {
+		
 		// If we landed on a new platform, we have to wait for two FixedUpdates
 		// before we know the velocity of the platform under the character
 		if (movingPlatform.newPlatform) {
@@ -487,7 +553,9 @@ private function SubtractNewPlatformVelocity () {
 			if (grounded && platform == movingPlatform.activePlatform)
 				yield 1;
 		}
+		
 		movement.velocity -= movingPlatform.platformVelocity;
+		
 	}
 }
 
@@ -522,10 +590,12 @@ private function IsGroundedTest () {
 
 function GetMaxAcceleration (grounded : boolean) : float {
 	// Maximum acceleration on ground and in air
-	if (grounded)
+	if (grounded) {
 		return movement.maxGroundAcceleration;
-	else
+	}
+	else {
 		return movement.maxAirAcceleration;
+	}
 }
 
 function CalculateJumpVerticalSpeed (targetJumpHeight : float) {
@@ -565,8 +635,9 @@ function SetControllable (controllable : boolean) {
 // Project a direction onto elliptical quater segments based on forward, sideways, and backwards speed.
 // The function returns the length of the resulting vector.
 function MaxSpeedInDirection (desiredMovementDirection : Vector3) : float {
-	if (desiredMovementDirection == Vector3.zero)
+	if (desiredMovementDirection == Vector3.zero) {
 		return 0;
+	}
 	else {
 		var zAxisEllipseMultiplier : float = (desiredMovementDirection.z > 0 ? movement.maxForwardSpeed : movement.maxBackwardsSpeed) / movement.maxSidewaysSpeed;
 		var temp : Vector3 = new Vector3(desiredMovementDirection.x, 0, desiredMovementDirection.z / zAxisEllipseMultiplier).normalized;
@@ -584,4 +655,3 @@ function SetVelocity (velocity : Vector3) {
 
 // Require a character controller to be attached to the same game object
 @script RequireComponent (CharacterController)
-@script AddComponentMenu ("Character/Character Motor")

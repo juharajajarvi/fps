@@ -4,17 +4,11 @@ using System.Collections;
 public class Enemy : MonoBehaviour
 {
 
-    private double health;
-    
-    /**
-     * How much 
-     */
-    private double hitAmount;
+    public double health = 100;    
+    public double hitAmount = 40d;
 
     void Start()
     {
-        health = 100;
-        hitAmount = 40d;
     }
 
     void Update()
@@ -45,10 +39,11 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.name == "bullet(Clone)" || true)
+        if ( c.gameObject.name == "Bullet(Clone)" )
         {
 			GameObject.DestroyObject(c.gameObject);
 			TakeHit();
         }
     }
+	
 }

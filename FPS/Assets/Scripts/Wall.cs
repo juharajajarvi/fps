@@ -25,8 +25,7 @@ public class Wall : MonoBehaviour
 			Quaternion holeRotation;
 			holeRotation = Quaternion.Euler(90, this.gameObject.transform.eulerAngles.y, this.gameObject.transform.eulerAngles.z);
 
-			Rigidbody newBulletHole;
-			newBulletHole = (Rigidbody) Instantiate(bulletHole, holePosition, holeRotation);
+			Rigidbody newBulletHole = (Rigidbody) Instantiate(bulletHole, holePosition, holeRotation);
 	}
 
     void OnCollisionEnter(Collision c)
