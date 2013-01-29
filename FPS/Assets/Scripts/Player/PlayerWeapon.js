@@ -7,6 +7,8 @@ public var gunShot : AudioClip;
 public var gunShotNoBullets : AudioClip;
 public var reload : AudioClip;
 
+public var bulletHole : Rigidbody;
+
 private var minWaitTime : float;
 private var reloadTime : float;
 private var currentIdleTime : float;
@@ -31,7 +33,7 @@ function Start() {
 	range = 300;
 	damage = 40;
 	
-	bulletsPerClip = 10;
+	bulletsPerClip = 30;
 	bullets = bulletsPerClip;
 	clips = 2;
 	
@@ -70,6 +72,7 @@ function isGunReady() {
 	var isOkToShoot = ( currentIdleTime > minWaitTime );
 	
 	return ( ! isReloading && isOkToShoot );
+	
 }
 
 function Shoot() {
@@ -100,11 +103,22 @@ function Shoot() {
 	
 	var hit : RaycastHit;
 	
+	// Check collisions
 	if ( Physics.Raycast ( exitPosition, exitDirection, hit, range ) ) {
+	
 		hit.collider.SendMessageUpwards("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver );
+		
+		if ( hit.collider.name == "Wall" ) {
+
+			var hitRotation = Quaternion.FromToRotation( Vector3.up, hit.normal );
+			var hitPosition = hit.point;
+			
+			var newBulletHole = Instantiate(bulletHole, hitPosition, hitRotation);
+			
+		}
+		
 	}
 	
-	// We could use this for visual bullets and raycast for collision detection
 	if ( bulletPrefab != null ) {
 		
 		// Instantiate the projectile at the position and rotation of this transform
