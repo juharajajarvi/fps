@@ -18,14 +18,12 @@ public class Wall : MonoBehaviour
 	{
 			// Position depends mainly on the bullet.
 		 	// TODO but make sure the hole won't be inside the wall
-			Vector3 holePosition;
-			holePosition = bulletPosition - 3 * Vector3.forward;
+			//Vector3 holePosition = bulletPosition - 3 * Vector3.forward;
 		
 			// Rotation depends on the the wall. This doesn't with roof....
-			Quaternion holeRotation;
-			holeRotation = Quaternion.Euler(90, this.gameObject.transform.eulerAngles.y, this.gameObject.transform.eulerAngles.z);
+			//Quaternion holeRotation = Quaternion.Euler(90, this.gameObject.transform.eulerAngles.y, this.gameObject.transform.eulerAngles.z);
 
-			Rigidbody newBulletHole = (Rigidbody) Instantiate(bulletHole, holePosition, holeRotation);
+			//Rigidbody newBulletHole = (Rigidbody) Instantiate(bulletHole, holePosition, holeRotation);
 	}
 
     void OnCollisionEnter(Collision c)
