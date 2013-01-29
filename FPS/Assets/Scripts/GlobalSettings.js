@@ -4,5 +4,5 @@
 
 public class GlobalSettings
 {
-	public static var isAudioEnabled = true;
+	public static var isAudioEnabled: boolean = true;
 }

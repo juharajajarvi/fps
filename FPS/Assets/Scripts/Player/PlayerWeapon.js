@@ -12,14 +12,14 @@ private var reloadTime : float;
 private var currentIdleTime : float;
 
 private var muzzleFlashLeft : int;
-private var range;
-private var damage;
+private var range : float;
+private var damage : float;
 
 private var bullets : int;
 private var bulletsPerClip : int;
 private var clips : int;
 
-private var isReloading;
+private var isReloading : boolean;
 
 function Start() {
 	
@@ -36,7 +36,6 @@ function Start() {
 	clips = 2;
 	
 	isReloading = false;
-	isFirstDryFire = true;
 }
 
 function Update() {	
