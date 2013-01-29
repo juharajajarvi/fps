@@ -4,20 +4,39 @@ public var bulletPrefab : Rigidbody;
 public var muzzleFlash : ParticleEmitter;
 
 public var gunShot : AudioClip;
+public var gunShotNoBullets : AudioClip;
 public var reload : AudioClip;
 
 private var minWaitTime : float;
+private var reloadTime : float;
 private var currentIdleTime : float;
+
 private var muzzleFlashLeft : int;
 private var range;
 private var damage;
 
+private var bullets : int;
+private var bulletsPerClip : int;
+private var clips : int;
+
+private var isReloading;
+
 function Start() {
-	minWaitTime = 0.1f; // 0.3 seconds
+	
+	minWaitTime = 0.1f;
+	reloadTime = 1.5f;
+	
 	currentIdleTime = minWaitTime + 1f;
 	muzzleFlashLeft = 0;
-	range = 300; // 300 meters
-	damage = 40; // 40 percent
+	range = 300;
+	damage = 40;
+	
+	bulletsPerClip = 10;
+	bullets = bulletsPerClip;
+	clips = 2;
+	
+	isReloading = false;
+	isFirstDryFire = true;
 }
 
 function Update() {	
@@ -42,7 +61,6 @@ function LateUpdate() {
 		if ( GlobalSettings.isAudioEnabled) {
 			if (!audio.isPlaying) {
 				audio.PlayOneShot (gunShot);
-				audio.loop = true;
 			}
 		}
 	}
@@ -50,19 +68,34 @@ function LateUpdate() {
 }
 
 function isGunReady() {
-	return (currentIdleTime > minWaitTime);
+
+	// TODO rename for god's sake
+	var isOkToShoot = ( currentIdleTime > minWaitTime );
+	
+	return ( ! isReloading && isOkToShoot );
 }
 
 function Shoot() {
 	
+	// TODO refactor
 	if ( ! isGunReady() ) {
+		return;
+	}
+	else if ( bullets == 0 ) {
+		
+		// Firing without bullets -> play dry fire sound
+		if ( ( currentIdleTime > minWaitTime )
+			&& GlobalSettings.isAudioEnabled 
+			&& ! audio.isPlaying 
+		) {
+			currentIdleTime = 0f;
+			audio.PlayOneShot (gunShotNoBullets );
+		}
 		return;
 	}
 	
 	muzzleFlashLeft = 1;
 	currentIdleTime = 0f;
-	
-	Debug.Log( GlobalSettings.isAudioEnabled );
 	
 	// Get the bullet exit position and direction
 	var exitTransform = GameObject.Find("Player Bullet Exit").transform;
@@ -84,6 +117,33 @@ function Shoot() {
 	    // Add force to the cloned object in the object's forward direction
 		newBullet.velocity = exitTransform.TransformDirection(Vector3.forward * 150);
 		
+	}
+	
+	bullets--;
+	
+	if ( bullets == 0 ) {
+		Reload();
+	}
+}
+
+function Reload() {
+
+	if ( clips > 0 ) {
+		isReloading = true;
+
+		yield WaitForSeconds( reloadTime*(1f/3) );
+						
+		if ( GlobalSettings.isAudioEnabled ) {
+			Debug.Log("reload sound");
+			audio.PlayOneShot( reload );
+		}
+
+		yield WaitForSeconds( reloadTime*(2f/3) );		
+
+		clips--;
+		bullets = bulletsPerClip;
+		
+		isReloading = false;
 	}
 	
 }
