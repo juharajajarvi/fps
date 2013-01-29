@@ -57,10 +57,8 @@ function LateUpdate() {
 		muzzleFlash.Emit();
 		muzzleFlashLeft--;
 
-		if ( GlobalSettings.isAudioEnabled) {
-			if (!audio.isPlaying) {
-				audio.PlayOneShot (gunShot);
-			}
+		if (!audio.isPlaying) {
+			audio.PlayOneShot (gunShot);
 		}
 	}
 	
@@ -84,7 +82,6 @@ function Shoot() {
 		
 		// Firing without bullets -> play dry fire sound
 		if ( ( currentIdleTime > minWaitTime )
-			&& GlobalSettings.isAudioEnabled 
 			&& ! audio.isPlaying 
 		) {
 			currentIdleTime = 0f;
@@ -132,10 +129,7 @@ function Reload() {
 
 		yield WaitForSeconds( reloadTime*(1f/3) );
 						
-		if ( GlobalSettings.isAudioEnabled ) {
-			Debug.Log("reload sound");
-			audio.PlayOneShot( reload );
-		}
+		audio.PlayOneShot( reload );
 
 		yield WaitForSeconds( reloadTime*(2f/3) );		
 

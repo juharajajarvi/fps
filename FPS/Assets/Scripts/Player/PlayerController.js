@@ -6,6 +6,12 @@ private var weapon : PlayerWeapon;
 function Awake () {
 	motor = GetComponent(PlayerMotor);
 	weapon = GetComponent(PlayerWeapon);
+	
+	if ( ! GlobalSettings.isAudioEnabled ) {
+		var audioListener : AudioListener;
+		audioListener = this.gameObject.GetComponentInChildren(AudioListener);
+		audioListener.volume = 0.0;
+	}
 }
 
 // Update is called once per frame
