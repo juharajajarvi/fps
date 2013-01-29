@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ApplyDamageOnCollision.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerWeapon.js">
     <Files>
-      <File FileName="Assets\Scripts\ApplyDamageOnCollision.js" Line="20" Column="2" />
+      <File FileName="Assets\Scripts\Player\PlayerWeapon.js" Line="37" Column="19" />
+      <File FileName="Assets\Scripts\ApplyDamageOnCollision.js" Line="15" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -29,7 +29,7 @@ function LateUpdate() {
 	}
 
 	if ( muzzleFlashLeft > 0 ) {
-		muzzleFlash.emit = true;
+		muzzleFlash.Emit();
 		muzzleFlashLeft--;
 		/*
 		if (audio) {
@@ -41,7 +41,7 @@ function LateUpdate() {
 		*/
 	}
 	else {
-		muzzleFlash.emit = false;
+		//muzzleFlash.emit = false;
 	}
 	
 }
