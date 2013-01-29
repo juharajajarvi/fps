@@ -3,6 +3,9 @@
 public var bulletPrefab : Rigidbody;
 public var muzzleFlash : ParticleEmitter;
 
+public var gunShot : AudioClip;
+public var reload : AudioClip;
+
 private var minWaitTime : float;
 private var currentIdleTime : float;
 private var muzzleFlashLeft : int;
@@ -35,14 +38,13 @@ function LateUpdate() {
 	if ( muzzleFlashLeft > 0 ) {
 		muzzleFlash.Emit();
 		muzzleFlashLeft--;
-		/*
-		if (audio) {
+
+		if ( GlobalSettings.isAudioEnabled) {
 			if (!audio.isPlaying) {
-				audio.Play ();
+				audio.PlayOneShot (gunShot);
 				audio.loop = true;
 			}
 		}
-		*/
 	}
 	
 }
@@ -59,6 +61,8 @@ function Shoot() {
 	
 	muzzleFlashLeft = 1;
 	currentIdleTime = 0f;
+	
+	Debug.Log( GlobalSettings.isAudioEnabled );
 	
 	// Get the bullet exit position and direction
 	var exitTransform = GameObject.Find("Player Bullet Exit").transform;
