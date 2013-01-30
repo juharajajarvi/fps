@@ -8,6 +8,7 @@ public var gunShotNoBullets : AudioClip;
 public var reload : AudioClip;
 
 public var bulletHole : Rigidbody;
+public var bulletHoleGravel : Rigidbody;
 
 private var minWaitTime : float;
 private var reloadTime : float;
@@ -108,14 +109,22 @@ function Shoot() {
 	
 		hit.collider.SendMessageUpwards("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver );
 		
-		if ( hit.collider.name != "Alien" ) {
+		// Don't create bullet holes on aliens
+		if ( hit.collider.name.IndexOf("Alien") == -1 ) {
 
 			// TODO add a rolling system with maximum number of bullet holes
 			var hitRotation = Quaternion.FromToRotation( Vector3.up, hit.normal );
 			var hitPosition = hit.point + hit.normal * 0.01; // To avoid z-fighting
 			
-			var newBulletHole = Instantiate(bulletHole, hitPosition, hitRotation);
+			var newBulletHole;
 			
+			if ( hit.collider.name == "Terrain" || hit.collider.name == "Bullet Hole Gravel(Clone)" ) {
+				// Bullet hole for gravel
+				newBulletHole = Instantiate(bulletHoleGravel, hitPosition, hitRotation);
+			} else {
+				// Default bullet hole
+				newBulletHole = Instantiate(bulletHole, hitPosition, hitRotation);
+			}
 		}
 		
 	}
