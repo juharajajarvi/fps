@@ -108,10 +108,11 @@ function Shoot() {
 	
 		hit.collider.SendMessageUpwards("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver );
 		
-		if ( hit.collider.name == "Wall" ) {
+		if ( hit.collider.name != "Alien" ) {
 
+			// TODO add a rolling system with maximum number of bullet holes
 			var hitRotation = Quaternion.FromToRotation( Vector3.up, hit.normal );
-			var hitPosition = hit.point;
+			var hitPosition = hit.point + hit.normal * 0.01; // To avoid z-fighting
 			
 			var newBulletHole = Instantiate(bulletHole, hitPosition, hitRotation);
 			
