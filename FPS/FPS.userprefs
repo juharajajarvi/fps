@@ -2,12 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerWeapon.js">
     <Files>
-      <File FileName="Assets\Scripts\Player\PlayerWeapon.js" Line="153" Column="3" />
-      <File FileName="Assets\Scripts\GlobalSettings.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ApplyDamageOnCollision.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerMotor.js" Line="23" Column="1" />
-      <File FileName="Assets\Scripts\DamageReceiver.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ItemCollector.js" Line="14" Column="4" />
       <File FileName="Assets\Scripts\Player\PlayerController.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerMotor.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DamageReceiver.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerWeapon.js" Line="89" Column="11" />
+      <File FileName="Assets\Scripts\Item.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

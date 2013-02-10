@@ -12,8 +12,6 @@ class PlayerWeapon extends MonoBehaviour {
 	public var bulletHole : Rigidbody;
 	public var bulletHoleGravel : Rigidbody;
 	
-	public var weaponGuiElement : GUIText;
-	
 	private var minWaitTime : float;
 	private var reloadTime : float;
 	private var currentIdleTime : float;
@@ -44,7 +42,10 @@ class PlayerWeapon extends MonoBehaviour {
 		
 		isReloading = false;
 		
-		weaponGuiElement.text = "RIFLE " + clips + " | " + bullets;
+	}
+	
+	function OnGUI() {
+		GUI.Label (Rect (10,10,1000,90), "RIFLE " + clips + " | " + bullets );
 	}
 	
 	function Update() {	
@@ -149,8 +150,6 @@ class PlayerWeapon extends MonoBehaviour {
 		if ( bullets == 0 ) {
 			Reload();
 		}
-		
-		weaponGuiElement.text = "RIFLE " + clips + " | " + bullets;
 	}
 	
 	function Reload() {
