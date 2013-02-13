@@ -52,17 +52,5 @@ function Update () {
 	
 }
 
-// Don't know why collisions doesn't work with CharacterController, but got fed up and done it like this...
-function OnTriggerEnter(cc : Collider) {
-	Debug.Log(cc.name);
-	if ( cc.tag == "SmallMedipack") {
-		playerHealth.add(20f);
-		GameObject.Destroy(cc.gameObject.transform.parent.gameObject);
-	} else if ( cc.tag == "LargeMedipack") {
-		playerHealth.add(50f);
-		GameObject.Destroy(cc.gameObject.transform.parent.gameObject);
-	}
-}
-
 @script RequireComponent (PlayerMotor)
 @script RequireComponent (PlayerWeapon)

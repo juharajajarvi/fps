@@ -14,11 +14,11 @@ class PlayerHealth extends DamageReceiver {
 	
 	}
 	
-	function add( amount : float ) {
+	function AddHealth( amount : float ) {
 		hitPoints += amount;
 		if ( hitPoints > 100.0) {
 			hitPoints = 100.0;
 		}
 	}
-
+	
 }
