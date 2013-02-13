@@ -1,12 +1,11 @@
 #pragma strict
 
-/*function OnTriggerEnter(collid : Collider ) {
-	Debug.Log("kerätty");
-    if (collid.gameObject.name == "Player")
-    {
-        triggered = true;
-    }
+function OnTriggerEnter(other: Collider){
+	Debug.Log("wtf kerää se");
+}
 
-}*/
+function OnCollisionEnter(other: Collision){
+	Debug.Log("wtf kerää se");
+}
 
 @script RequireComponent (Rigidbody)

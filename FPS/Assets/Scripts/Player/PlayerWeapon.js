@@ -45,7 +45,7 @@ class PlayerWeapon extends MonoBehaviour {
 	}
 	
 	function OnGUI() {
-		GUI.Label (Rect (10,10,1000,90), "RIFLE " + clips + " | " + bullets );
+		GUI.Label (Rect (100,10,1000,90), "RIFLE " + clips + " | " + bullets );
 	}
 	
 	function Update() {	

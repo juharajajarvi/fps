@@ -2,6 +2,8 @@
 private var motor : PlayerMotor;
 private var weapon : PlayerWeapon;
 
+public var playerHealth : PlayerHealth;
+
 // Use this for initialization
 function Awake () {
 	motor = GetComponent(PlayerMotor);
@@ -48,6 +50,18 @@ function Update () {
 		weapon.Shoot();
 	}
 	
+}
+
+// Don't know why collisions doesn't work with CharacterController, but got fed up and done it like this...
+function OnTriggerEnter(cc : Collider) {
+	Debug.Log(cc.name);
+	if ( cc.tag == "SmallMedipack") {
+		playerHealth.add(20f);
+		GameObject.Destroy(cc.gameObject.transform.parent.gameObject);
+	} else if ( cc.tag == "LargeMedipack") {
+		playerHealth.add(50f);
+		GameObject.Destroy(cc.gameObject.transform.parent.gameObject);
+	}
 }
 
 @script RequireComponent (PlayerMotor)
