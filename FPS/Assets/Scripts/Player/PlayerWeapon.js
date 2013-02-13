@@ -90,8 +90,11 @@ class PlayerWeapon extends MonoBehaviour {
 		}
 		else if ( bullets == 0 ) {
 			
-			// Firing without bullets -> play dry fire sound
-			if ( ( currentIdleTime > minWaitTime )
+			// Firing without bullets
+			
+			if ( clips > 0 ) {
+				Reload();
+			} else if ( ( currentIdleTime > minWaitTime )
 				&& ! audio.isPlaying 
 			) {
 				currentIdleTime = 0f;
@@ -169,5 +172,13 @@ class PlayerWeapon extends MonoBehaviour {
 			isReloading = false;
 		}
 		
+	}
+	
+	function AddMagazine() {
+		clips++;
+		
+		if ( bullets == 0 ) {
+			Reload();
+		}
 	}
 }
