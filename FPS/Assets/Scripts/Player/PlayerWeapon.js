@@ -127,12 +127,16 @@ class PlayerWeapon extends MonoBehaviour {
 				
 				var newBulletHole;
 				
-				if ( hit.collider.name == "Terrain" || hit.collider.name == "Bullet Hole Gravel(Clone)" ) {
-					// Bullet hole for gravel
-					newBulletHole = Instantiate(bulletHoleGravel, hitPosition, hitRotation);
-				} else {
-					// Default bullet hole
-					newBulletHole = Instantiate(bulletHole, hitPosition, hitRotation);
+				if (hit.collider.gameObject.name == "Wall" || hit.collider.gameObject.name == "Floor") {
+				
+					if ( hit.collider.name == "Terrain" || hit.collider.name == "Bullet Hole Gravel(Clone)" ) {
+						// Bullet hole for gravel
+						newBulletHole = Instantiate(bulletHoleGravel, hitPosition, hitRotation);
+					} else {
+						// Default bullet hole
+						newBulletHole = Instantiate(bulletHole, hitPosition, hitRotation);
+					}
+				
 				}
 			}
 			
