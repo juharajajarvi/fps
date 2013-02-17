@@ -21,4 +21,11 @@ class PlayerHealth extends DamageReceiver {
 		}
 	}
 	
+	function ReduceHealth( amount : float ) {
+		hitPoints -= amount;
+		if ( hitPoints < 0.0) {
+			// Player is dead :(
+		}
+	}
+	
 }

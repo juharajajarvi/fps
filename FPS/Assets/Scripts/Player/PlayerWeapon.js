@@ -38,7 +38,7 @@ class PlayerWeapon extends MonoBehaviour {
 		
 		bulletsPerClip = 30;
 		bullets = bulletsPerClip;
-		clips = 2;
+		clips = 4;
 		
 		isReloading = false;
 		

@@ -2,7 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerWeapon.js">
     <Files>
-      <File FileName="Assets\Scripts\Player\PlayerWeapon.js" Line="123" Column="2" />
+      <File FileName="Assets\Scripts\Alien\AlienAi.js" Line="30" Column="1" />
+      <File FileName="Assets\Scripts\Alien\AlienAiAnimation.js" Line="25" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerWeapon.js" Line="41" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
