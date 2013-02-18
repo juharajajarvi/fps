@@ -1,17 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ClickTrigger.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerHealth.js">
     <Files>
-      <File FileName="Assets\Scripts\ClickTrigger.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerHealth.js" Line="14" Column="3" />
+      <File FileName="Assets\Scripts\ClickTrigger.js" Line="12" Column="5" />
       <File FileName="Assets\Scripts\Triggable.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MedipackItem.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DamageReceiver.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerHealth.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DoorScript.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PauseMenu.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\PlayerController.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ClickableTrigger.js" Line="7" Column="32" />
-      <File FileName="Assets\Scripts\ExitTriggable.js" Line="3" Column="31" />
+      <File FileName="Assets\Scripts\ClickableTrigger.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ExitTriggable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerWeapon.js" Line="47" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -26,6 +26,8 @@ class PlayerWeapon extends MonoBehaviour {
 	
 	private var isReloading : boolean;
 	
+	private var playerHealth : PlayerHealth;
+	
 	function Start() {
 		
 		minWaitTime = 0.1f;
@@ -41,6 +43,8 @@ class PlayerWeapon extends MonoBehaviour {
 		clips = 4;
 		
 		isReloading = false;
+		
+		playerHealth = GetComponent(PlayerHealth);
 		
 	}
 	
@@ -78,7 +82,7 @@ class PlayerWeapon extends MonoBehaviour {
 		// TODO rename for god's sake
 		var isOkToShoot = ( currentIdleTime > minWaitTime );
 		
-		return ( ! isReloading && isOkToShoot );
+		return ( ! isReloading && isOkToShoot && playerHealth.IsAlive() );
 		
 	}
 	
