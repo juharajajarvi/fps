@@ -46,6 +46,11 @@ class PlayerHealth extends DamageReceiver {
 
 	function Die() {
 		isAlive = false;
+		
+		// Enable click listener to go to menu
+		GetComponent(ClickTrigger).enabled = true;
+		
+		// dead replacement or wat?
 		gameObject.rigidbody.useGravity = true;
 	}	
 }
