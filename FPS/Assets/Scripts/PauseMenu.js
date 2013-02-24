@@ -38,7 +38,7 @@ function OnGUI () {
 		}
 	
 		//Second button returns to main menu
-		if (GUI.Button (Rect((Screen.width-150)/2,190,150,20), "Quit")) { 
+		if (GUI.Button (Rect((Screen.width-150)/2,140,150,20), "Quit")) { 
 			Application.LoadLevel("main_menu"); 
 		}
 	}
