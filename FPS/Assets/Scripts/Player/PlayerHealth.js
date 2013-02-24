@@ -48,7 +48,7 @@ class PlayerHealth extends DamageReceiver {
 		isAlive = false;
 		
 		// Enable click listener to go to menu
-		GetComponent(ClickTrigger).enabled = true;
+		GetComponent(AnyKeyTrigger).enabled = true;
 		
 		// dead replacement or wat?
 		gameObject.rigidbody.useGravity = true;
