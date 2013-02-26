@@ -18,10 +18,12 @@ function Start () {
 }
 
 function SetSpeed (speed : float) {
-	if (speed > minimumRunSpeed) {
-		animation.CrossFade("run");
+	
+	if ( speed > minimumRunSpeed ) {
+		animation.CrossFade("walk");
 	}
 	else {
 		animation.CrossFade("idle");
 	}
+	
 }

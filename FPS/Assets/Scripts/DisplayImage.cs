@@ -18,6 +18,7 @@ public class DisplayImage : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		
 		if (centerX) {
 			startX = (int)(Screen.width/2f - width/2f);	
 		}
@@ -26,6 +27,7 @@ public class DisplayImage : MonoBehaviour {
 		opacity = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 		fadeTime = fadeDuration;
 		triggable = GetComponent<Triggable>();
+		
 	}
 	
 	// Update is called once per frame
@@ -43,7 +45,8 @@ public class DisplayImage : MonoBehaviour {
 					fadeTime = fadeDuration; // for state 2
 				}
 				
-			} else if ( state == 1 ) {
+			} 
+			else if ( state == 1 ) {
 				
 				// Normal show
 				opacity = new Color(1.0f, 1.0f, 1.0f, 1.0f );
@@ -52,7 +55,8 @@ public class DisplayImage : MonoBehaviour {
 					state = 2;
 				}
 				
-			} else if ( state == 2 ) {
+			} 
+			else if ( state == 2 ) {
 				
 				// Fade out
 				fadeTime -= Time.deltaTime;
@@ -61,6 +65,7 @@ public class DisplayImage : MonoBehaviour {
 					triggable.Trigger();
 				}
 			}
+			
 		}
 
 	}

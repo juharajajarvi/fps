@@ -5,12 +5,12 @@ var shootRange = 15.0;
 var attackRange = 30.0;
 var shootAngle = 4.0;
 var dontComeCloserRange = 5.0;
-var delayShootTime = 0.35;
+var delayShootTime = 0.5;
 var pickNextWaypointDistance = 2.0;
 var target : Transform;
 
 private var lastShot = -10.0;
-private var updateLoop = 2.0;
+private var updateLoop = 1.5;
 
 // Make sure there is always a character controller
 @script RequireComponent (CharacterController)
@@ -32,7 +32,7 @@ function Update() {
 	updateLoop -= Time.deltaTime;
 	if ( updateLoop < 0.0 ) {
 		UpdateFunction();
-		updateLoop = 2.0;
+		updateLoop = 1.5;
 	}
 
 }
@@ -105,21 +105,21 @@ function AttackPlayer () {
 
 	while (true) {
 
-		if ( CanSeeTarget () ) {
+		if ( CanSeeTarget() ) {
 
 			// Target is dead - stop hunting
-			if (target == null) {
+			if ( target == null ) {
 				return;
 			}
 
 			// Target is too far away - give up
 			var distance = Vector3.Distance(transform.position, target.position);
-			if (distance > shootRange * 3) {
+			if ( distance > shootRange * 3 ) {
 				return;
 			}
 
 			lastVisiblePlayerPosition = target.position;
-			if (distance > dontComeCloserRange) {
+			if ( distance > dontComeCloserRange ) {
 				MoveTowards (lastVisiblePlayerPosition);
 			}
 			else {
@@ -133,7 +133,7 @@ function AttackPlayer () {
 			var angle = Vector3.Angle(targetDirection, forward);
 
 			// Start shooting if close and play is in sight
-			if (distance < shootRange && angle < shootAngle) {
+			if ( distance < shootRange && angle < shootAngle ) {
 				yield StartCoroutine("Shoot");
 			}
 
@@ -157,9 +157,8 @@ function AttackPlayer () {
 
 function SearchPlayer (position : Vector3) {
 
-	// Run towards the player but after 3 seconds timeout and go back to
-	// Patroling
-	var timeout = 3.0;
+	// Run towards the player but after 3 seconds timeout
+	var timeout = 5.0;
 	while (timeout > 0.0) {
 
 		MoveTowards(position);
@@ -178,11 +177,11 @@ function SearchPlayer (position : Vector3) {
 
 function RotateTowards (position : Vector3) {
 
-	SendMessage("SetSpeed", 0.0);
+	SendMessage("SetSpeed", 0.5);
 
 	var direction = position - transform.position;
 	direction.y = 0;
-	if (direction.magnitude < 0.1) {
+	if ( direction.magnitude < 0.1 ) {
 		return;
 	}
 
@@ -203,7 +202,7 @@ function MoveTowards (position : Vector3) {
 	direction.y = 0;
 
 	if ( direction.magnitude < 0.5 ) {
-		SendMessage("SetSpeed", 0.0);
+		SendMessage("SetSpeed", 0.5);
 		return;
 	}
 
@@ -213,6 +212,7 @@ function MoveTowards (position : Vector3) {
 		Quaternion.LookRotation(direction),
 		rotationSpeed * Time.deltaTime
 	);
+	
 	transform.eulerAngles = Vector3(0, transform.eulerAngles.y, 0);
 
 	// Modify speed so we slow down when we are not facing the target
