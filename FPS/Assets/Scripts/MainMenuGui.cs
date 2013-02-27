@@ -16,6 +16,7 @@ public class MainMenuGui : MonoBehaviour {
 	void Start() {
 		
 		Screen.showCursor = true;
+		Screen.lockCursor = false;
 		
 		if (centerX) {
 			startX = (int)(Screen.width/2f - width/2f);	

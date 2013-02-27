@@ -9,7 +9,7 @@ public var playerController:PlayerController;
 var MenuActive:boolean = false;
 
 function Start () {
-
+	Screen.lockCursor = true;
 }
 
 function Update () {
@@ -32,13 +32,13 @@ function OnGUI () {
 		GUI.Box (Rect ((Screen.width-200)/2,80,200,180), "ALIEN FPS -- PAUSED"); 
 	
 		//First button returns to the game in progress
-		if (GUI.Button (Rect ((Screen.width-150)/2,110,150,20), "Back to game")) { 
+		if (GUI.Button (Rect ((Screen.width-150)/2,150,150,20), "Back to game")) { 
 			MenuActive = false;
 			Resume();
 		}
 	
 		//Second button returns to main menu
-		if (GUI.Button (Rect((Screen.width-150)/2,140,150,20), "Quit")) { 
+		if (GUI.Button (Rect((Screen.width-150)/2,180,150,20), "Quit")) { 
 			Application.LoadLevel("main_menu"); 
 		}
 	}
@@ -62,6 +62,7 @@ function LateUpdate() {
 function SetPaused() {
 	Time.timeScale = 0.0;
 	playerController.enabled = false;
+	Screen.lockCursor = false;
 	//playerLook.enabled = false;
 	Debug.Log("Paused");
 }
@@ -69,5 +70,6 @@ function SetPaused() {
 function Resume() {
 	Time.timeScale = 1.0;
 	playerController.enabled = true;
+	Screen.lockCursor = true;
 	//playerLook.enabled = true;
 }
