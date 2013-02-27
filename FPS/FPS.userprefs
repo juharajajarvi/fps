@@ -1,14 +1,6 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PauseMenu.js">
-    <Files>
-      <File FileName="Assets\Scripts\MainMenuGui.cs" Line="16" Column="16" />
-      <File FileName="Assets\Scripts\Player\PlayerHealth.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ClickTrigger.js" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\AnyKeyTrigger.cs" Line="10" Column="1" />
-      <File FileName="Assets\Scripts\PauseMenu.js" Line="42" Column="39" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
