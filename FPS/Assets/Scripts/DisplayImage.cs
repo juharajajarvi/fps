@@ -7,6 +7,7 @@ public class DisplayImage : MonoBehaviour {
 	public int width=693, height=368;
 	public int startX=90, startY=90;
 	public bool centerX = true;
+	public bool centerY = false;
 	
 	public bool isFadeOn = false;
 	public float showTime=2f, fadeDuration=0.5f;
@@ -21,6 +22,10 @@ public class DisplayImage : MonoBehaviour {
 		
 		if (centerX) {
 			startX = (int)(Screen.width/2f - width/2f);	
+		}
+		
+		if (centerY) {
+			startY = (int)(Screen.height/2f - height/2f);	
 		}
 		
 		state = 0;
