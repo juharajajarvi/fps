@@ -2,9 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class AnyKeyTrigger : MonoBehaviour {
+	
 	public bool removeOnClick;
 	public bool isTimed;
-	public float timeAfterTriggered=2.0f;
+	public float timeAfterTriggered = 2.0f;
 	private float timeRemaining;
 	
 	private Triggable triggable;
@@ -24,16 +25,18 @@ public class AnyKeyTrigger : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-	    if (Event.current.type == EventType.KeyDown || Event.current.type == EventType.MouseDown) {
+	    if (Event.current.type == EventType.MouseDown) {
 	        DoTrigger();
 	    }
 	}
 	 
 	void DoTrigger() {
+		
 	    triggable.Trigger();
 	    
 	    if (removeOnClick) {
 	    	GameObject.Destroy(this);
 	    }
+		
 	}
 }

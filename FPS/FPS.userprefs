@@ -1,6 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Alien\AlienAi.js">
+    <Files>
+      <File FileName="Assets\Scripts\Player\PlayerWeapon.js" Line="155" Column="78" />
+      <File FileName="Assets\Standard Assets\AnyKeyTrigger.cs" Line="28" Column="10" />
+      <File FileName="Assets\Scripts\Alien\AlienAi.js" Line="225" Column="27" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

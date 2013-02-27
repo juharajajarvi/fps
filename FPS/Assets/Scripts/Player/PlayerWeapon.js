@@ -152,7 +152,7 @@ class PlayerWeapon extends MonoBehaviour {
 			var newBullet = Instantiate(bulletPrefab, exitPosition, exitTransform.rotation);
 			
 		    // Add force to the cloned object in the object's forward direction
-			newBullet.velocity = exitTransform.TransformDirection(Vector3.forward * 150);
+			newBullet.velocity = exitTransform.TransformDirection(Vector3.forward * 100);
 			
 		}
 		
